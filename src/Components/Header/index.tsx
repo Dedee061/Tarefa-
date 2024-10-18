@@ -21,9 +21,11 @@ export default function Header() {
               <span>+</span>
             </h1>
           </Link>
-          <Link className={styles.link} href={"/dashboard"}>
-            Meu Painel
-          </Link>
+          {session?.user && (
+              <Link className={styles.link} href={"/dashboard"}>
+              Meu Painel
+            </Link>
+          )}
         </nav>
 
 
@@ -35,7 +37,7 @@ export default function Header() {
           </button>
           ): (
             <button className={styles.loginButton} onClick={() => signIn('google')}>
-            fazer login
+            Acessar
           </button>
           )}
       
