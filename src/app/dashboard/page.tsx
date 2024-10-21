@@ -30,13 +30,19 @@ export default function dashboard() {
       <title>Meu Painel de tarefas</title>
       <div className={styles.container}>
         <main className={styles.main}>
-            <section className={styles.content}>
-              <div className={styles.contentForm}>
-                <h1 className={styles.title}>Qual sua Tarefa ?</h1>
-
-                <TextArea/>
-              </div>
-            </section>
+          <section className={styles.content}>
+            <div className={styles.contentForm}>
+              <h1 className={styles.title}>Qual sua Tarefa ?</h1>
+              <form>
+                <TextArea />
+                <div className={styles.checkboxarea}>
+                  <input type="checkbox" className={styles.checkbox} />
+                  <label htmlFor="">Deixa Tarefa Publica</label>
+                </div>
+                <button type='submit' className={styles.button}>Enviar</button>
+              </form>
+            </div>
+          </section>
         </main>
       </div>
     </>
