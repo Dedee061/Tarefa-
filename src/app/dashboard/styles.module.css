@@ -22,3 +22,25 @@ width: 100%;
     font-size: 36px;
     font-weight: bold;
 }
+
+.checkboxarea label{
+    margin-left: 8px;
+    color: #fff;
+}
+
+.checkbox{
+    width: 18px;
+    height: 18px;
+    margin: 14px 0;
+}
+
+.button{
+    width: 100%;
+    border :0;
+    border-radius: 4px;
+    color:#fff;
+    background-color: #896BFF;
+    padding: 12px 0;
+    font-size: 18px;
+
+}

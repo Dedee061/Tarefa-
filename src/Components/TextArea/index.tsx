@@ -1,8 +1,8 @@
-import React from 'react'
+import React, { HTMLProps } from 'react'
 import styles from './styles.module.css'
 
-export function TextArea() {
+export function TextArea({ ...rest }: HTMLProps<HTMLTextAreaElement>) {
   return (
-    <textarea className={styles.textarea}></textarea>
+    <textarea className={styles.textarea}{...rest}></textarea>
   )
 }

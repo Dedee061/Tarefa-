@@ -34,7 +34,7 @@ export default function dashboard() {
             <div className={styles.contentForm}>
               <h1 className={styles.title}>Qual sua Tarefa ?</h1>
               <form>
-                <TextArea />
+                <TextArea placeholder='Digite qual sua terafa'/>
                 <div className={styles.checkboxarea}>
                   <input type="checkbox" className={styles.checkbox} />
                   <label htmlFor="">Deixa Tarefa Publica</label>
