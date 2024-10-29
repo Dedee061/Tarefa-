@@ -59,10 +59,12 @@ export default function dashboard() {
   useEffect(() => {
     async function loadTask() {
       const taskRef = collection(db, "task");
+      const userRef = collection(db, "user");
       const q = query(
         taskRef,
         orderBy("created", "desc"),
-        where("user", "==", session?.user.email)
+        where("user", "==", session?.user?.email)
+        
       );
 
       onSnapshot(q, (snapshot) => {
@@ -76,7 +78,7 @@ export default function dashboard() {
             task: doc.data().tarefa,
             user: doc.data().user,
           });
-        });
+        })
 
         setTasks(lista);
       });
@@ -145,7 +147,7 @@ export default function dashboard() {
                 </div>
                 )}
                 <div className={styles.taskContent}>
-                  <p>Minha tarefa de exemplo</p>
+                  <p>{task.task}</p>
                   <button className={styles.trashButton}>
                     <FaTrash size={24} color="#ea3140" />
                   </button>
