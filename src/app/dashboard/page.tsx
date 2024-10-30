@@ -7,6 +7,7 @@ import Loading from "../../Components/Loading/index.";
 import { TextArea } from "../../Components/TextArea";
 import { FaShare, FaTrash } from "react-icons/fa";
 import { FiShare2 } from "react-icons/fi";
+import Link from "next/link";
 
 import { db } from "../services/firebaseConnection";
 import {
@@ -16,6 +17,8 @@ import {
   orderBy,
   where,
   onSnapshot,
+  doc,
+  deleteDoc,
 } from "firebase/firestore";
 
 interface TaskProps {
@@ -64,7 +67,6 @@ export default function dashboard() {
         taskRef,
         orderBy("created", "desc"),
         where("user", "==", session?.user?.email)
-        
       );
 
       onSnapshot(q, (snapshot) => {
@@ -78,7 +80,7 @@ export default function dashboard() {
             task: doc.data().tarefa,
             user: doc.data().user,
           });
-        })
+        });
 
         setTasks(lista);
       });
@@ -101,6 +103,17 @@ export default function dashboard() {
     return <Loading />;
   }
 
+  async function handlerShare(id: string) {
+    await navigator.clipboard.writeText(
+      `${process.env.NEXT_PUCLIC_URL}/task/${id}`
+    );
+    alert("Url Copiada com suceso");
+  }
+
+  async function handlerDelete(id: string) {
+    const docRef = doc(db, "task", id);
+    await deleteDoc(docRef);
+  }
   return (
     <>
       <title>Meu Painel de tarefas</title>
@@ -140,15 +153,24 @@ export default function dashboard() {
               <article key={task.id} className={styles.task}>
                 {task.public && (
                   <div className={styles.tagContainer}>
-                  <label className={styles.tag}>PUBLICO</label>
-                  <button className={styles.shareButton}>
-                    <FiShare2 size={22} color="#896BFF" />
-                  </button>
-                </div>
+                    <label className={styles.tag}>PUBLICO</label>
+                    <button
+                      className={styles.shareButton}
+                      onClick={() => handlerShare(task.id)}
+                    >
+                      <FiShare2 size={22} color="#896BFF" />
+                    </button>
+                  </div>
                 )}
                 <div className={styles.taskContent}>
-                  <p>{task.task}</p>
-                  <button className={styles.trashButton}>
+                  {task.public ? (
+                    <Link href={`/task/${task.id}`}>
+                      <p>{task.task}</p>
+                    </Link>
+                  ) : (
+                    <p>{task.task}</p>
+                  )}
+                  <button className={styles.trashButton} onClick={() => handlerDelete(task.id)}>
                     <FaTrash size={24} color="#ea3140" />
                   </button>
                 </div>
